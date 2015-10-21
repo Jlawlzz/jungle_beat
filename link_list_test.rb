@@ -85,9 +85,15 @@ class JungleBeatTest < MiniTest::Test
   end
 
   def test_includes?
+    jb = JungleBeat.new('bop boop beep')
+    jb.includes?('boop')
+    assert jb.includes?('boop')
+  end
+
+  def test_pop
     skip
     jb = JungleBeat.new('bop boop beep')
-    assert jb.includes?('boop')
+    jb.test_pop
   end
 
 end

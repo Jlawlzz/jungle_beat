@@ -41,14 +41,7 @@ class JungleBeat
         input.shift
         node = @data
       end
-
       input.each do |word|
-        #  until @head != nil
-        #    @head = node
-        #    input.shift
-        #    node = @head
-        #  end
-
         node.next = Node.new(word)
         node = node.next
       end
@@ -81,10 +74,16 @@ class JungleBeat
 
   def includes?(input)
     node = @head
-    until node.node == input
+    until node.next == nil
+      value = true if node.node == input
       node = node.next
     end
+    value
   end
+
+  def pop
+  end
+
 end
 
 # end
