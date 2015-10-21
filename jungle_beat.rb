@@ -32,12 +32,14 @@ class JungleBeat
     if input
       input = input.split(' ')
       node = Node.new(input[0])
+
       input.each do |word|
         until @head != nil
           @head = node
           input.shift
           node = @head
         end
+
         node.next = Node.new(word)
         node = node.next
       end
@@ -55,11 +57,17 @@ class JungleBeat
   end
 
   def append(input)
-    find_tail
-    @tail.next = build_link_list(input)
+
+    # @tail.next = Node.new()
   end
 
-
+  def prepend(input)
+    old_head = @head
+    @head = nil
+    build_link_list(input)
+    find_tail
+    @tail.next = old_head
+  end
 end
 
 # end

@@ -36,6 +36,12 @@ class JungleBeatTest < MiniTest::Test
     assert jb.tail?
   end
 
+  def test_tail_class?
+    jb = JungleBeat.new('beep bop boop')
+    jb.find_tail
+    assert Class, jb.tail.class
+  end
+
   #why only work with three or more?
   def test_has_correct_tail?
     jb = JungleBeat.new('bop beep bloop')
@@ -51,15 +57,14 @@ class JungleBeatTest < MiniTest::Test
     assert_equal 3, jb.count
   end
 
-  def append
+  def test_append_makes_link_list
     skip
     jb = JungleBeat.new('bop beep boop')
-    jb.append('beep bop')
-    jb.find_tail
-    assert_equal 'bop', jb.tail.node
+    jb.append('peep pop doop')
+    assert_equal 'doop', jb.tail.node
   end
 
-  def prepend
+  def def_prepend
     skip
     jb = JungleBeat.new('bop boop boop')
     jb.prepend('puts', 'bop')
