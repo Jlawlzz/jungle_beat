@@ -32,13 +32,22 @@ class JungleBeat
     if input
       input = input.split(' ')
       node = Node.new(input[0])
+      if @head == nil
+        @head = node
+        input.shift
+        node = @head
+      else
+        @data = node
+        input.shift
+        node = @data
+      end
 
       input.each do |word|
-        until @head != nil
-          @head = node
-          input.shift
-          node = @head
-        end
+        #  until @head != nil
+        #    @head = node
+        #    input.shift
+        #    node = @head
+        #  end
 
         node.next = Node.new(word)
         node = node.next
@@ -57,8 +66,9 @@ class JungleBeat
   end
 
   def append(input)
-
-    # @tail.next = Node.new()
+    find_tail
+    build_link_list(input)
+    @tail.next = @data
   end
 
   def prepend(input)
@@ -67,6 +77,13 @@ class JungleBeat
     build_link_list(input)
     find_tail
     @tail.next = old_head
+  end
+
+  def includes?(input)
+    node = @head
+    until node.node == input
+      node = node.next
+    end
   end
 end
 

@@ -57,19 +57,37 @@ class JungleBeatTest < MiniTest::Test
     assert_equal 3, jb.count
   end
 
-  def test_append_makes_link_list
-    skip
+  def test_append
     jb = JungleBeat.new('bop beep boop')
     jb.append('peep pop doop')
+    jb.find_tail
     assert_equal 'doop', jb.tail.node
   end
 
-  def def_prepend
-    skip
+  def test_after_append_correct_number_in_list
+    jb = JungleBeat.new('bop beep boop')
+    jb.append('peep pop doop')
+    jb.count
+    assert_equal 6, jb.count
+  end
+
+  def test_prepend
     jb = JungleBeat.new('bop boop boop')
-    jb.prepend('puts', 'bop')
+    jb.prepend('puts bop')
     assert_equal 'puts', jb.head.node
   end
 
+  def test_after_prepend_correct_number_in_list
+    jb = JungleBeat.new('bop boop boop')
+    jb.prepend('puts bop')
+    jb.count
+    assert_equal 5, jb.count
+  end
+
+  def test_includes?
+    skip
+    jb = JungleBeat.new('bop boop beep')
+    assert jb.includes?('boop')
+  end
 
 end
