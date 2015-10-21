@@ -20,8 +20,14 @@ class JungleBeatTest < MiniTest::Test
 
   #jungle_beats_test
 
-  def test_has_input
+  def test_has_head?
     jb = JungleBeat.new('bop')
-    assert_equal 'bop', jb.input
+    assert jb.head?
+  end
+
+  def test_has_tail?
+    jb = JungleBeat.new('bop beep')
+    jb.tail
+    assert jb.tail?
   end
 end
