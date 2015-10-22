@@ -86,14 +86,29 @@ class JungleBeatTest < MiniTest::Test
 
   def test_includes?
     jb = JungleBeat.new('bop boop beep')
-    jb.includes?('boop')
     assert jb.includes?('boop')
   end
 
   def test_pop
-    skip
-    jb = JungleBeat.new('bop boop beep')
-    jb.test_pop
+    jb = JungleBeat.new('bop boop beep blop')
+    assert_equal 'beep blop', jb.pop(2)
+  end
+
+  def test_all
+    jb = JungleBeat.new ('bop boop beep blop')
+    jb.all
+    assert_equal 'bop boop beep blop', jb.all
+  end
+
+  def test_find
+    jb = JungleBeat.new('beep bop boop blop deep')
+    jb.find(2,4)
+    assert_equal 'bop boop blop deep', jb.find(2,4)
+  end
+
+  def test_insert
+    jb = JungleBeat.new('beep bop boop blop beep')
+    assert_equal 'beep bop boop blop deep dop beep', jb.insert(4, 'deep dop')
   end
 
 end
