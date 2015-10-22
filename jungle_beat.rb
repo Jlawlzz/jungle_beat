@@ -4,11 +4,27 @@ require 'pry'
 
 class JungleBeat
 
-  attr_reader :head, :tail
+  attr_reader :head, :tail, :rate, :voice
+  attr_accessor
 
   def initialize(input = nil)
     @head = nil
-    build_link_list(input)
+    filter_input(input)
+  end
+
+  def play
+    `say -r #{@rate} -v "#{reset_voice}" "#{all}"`
+  end
+
+  def reset_rate(rate)
+    @rate
+  end
+
+  def reset_voice(voice = 'Boing')
+    if voice != 'Boing'
+      voice = voice
+    end
+    voice
   end
 
   def head?
@@ -28,9 +44,16 @@ class JungleBeat
     end
   end
 
+  def filter_input(pre_input)
+    accept_input = ['tee', 'dee', 'deep','dop', 'doop', 'bop', 'boop', 'beep', 'blop', 'la', 'na']
+    input = pre_input.split(' ').select do |word|
+      accept_input.include?(word)
+    end
+    build_link_list(input)
+  end
+
   def build_link_list(input)
     if input
-      input = input.split(' ')
       node = Node.new(input[0])
       if @head == nil
         @head = node
@@ -60,14 +83,14 @@ class JungleBeat
 
   def append(input)
     find_tail
-    build_link_list(input)
+    filter_input(input)
     @tail.next = @data
   end
 
   def prepend(input)
     old_head = @head
     @head = nil
-    build_link_list(input)
+    filter_input(input)
     find_tail
     @tail.next = old_head
   end
@@ -128,7 +151,7 @@ class JungleBeat
   def insert(num, input)
     node = @head
     counter = 1
-    build_link_list(input)
+    filter_input(input)
     until num == counter
       node = node.next
       temp_head = node.next

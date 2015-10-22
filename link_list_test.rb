@@ -42,12 +42,18 @@ class JungleBeatTest < MiniTest::Test
     assert Class, jb.tail.class
   end
 
-  #why only work with three or more?
   def test_has_correct_tail?
-    jb = JungleBeat.new('bop beep bloop')
+    jb = JungleBeat.new('bop beep boop')
     jb.find_tail
-    assert_equal 'bloop', jb.tail.node
+    assert_equal 'boop', jb.tail.node
   end
+
+  def test_filter_input
+    jb = JungleBeat.new('bop boop dog')
+    jb.find_tail
+    assert_equal 'boop', jb.tail.node
+  end
+
 
   #methods
 
@@ -59,27 +65,27 @@ class JungleBeatTest < MiniTest::Test
 
   def test_append
     jb = JungleBeat.new('bop beep boop')
-    jb.append('peep pop doop')
+    jb.append('peep dop doop')
     jb.find_tail
     assert_equal 'doop', jb.tail.node
   end
 
   def test_after_append_correct_number_in_list
     jb = JungleBeat.new('bop beep boop')
-    jb.append('peep pop doop')
+    jb.append('beep bop boop')
     jb.count
     assert_equal 6, jb.count
   end
 
   def test_prepend
     jb = JungleBeat.new('bop boop boop')
-    jb.prepend('puts bop')
-    assert_equal 'puts', jb.head.node
+    jb.prepend('boop bop')
+    assert_equal 'boop', jb.head.node
   end
 
   def test_after_prepend_correct_number_in_list
     jb = JungleBeat.new('bop boop boop')
-    jb.prepend('puts bop')
+    jb.prepend('boop bop')
     jb.count
     assert_equal 5, jb.count
   end
@@ -111,4 +117,9 @@ class JungleBeatTest < MiniTest::Test
     assert_equal 'beep bop boop blop deep dop beep', jb.insert(4, 'deep dop')
   end
 
+  def play_contains_correct_instructions
+    jb = JungleBeat.new('bop bop boop blop')
+    jb.play
+    assert_equal `say -r 500 -v "Boing" "beep bop boop blop"`, jb.play
+  end
 end
