@@ -9,7 +9,6 @@ class JungleBeat
   def initialize(input = nil)
     @head = nil
     filter_input(input)
-    p self.count
   end
 
   def play
@@ -27,10 +26,13 @@ class JungleBeat
 
   def find_tail
     node = @head
-    # count?
-    until node.next == nil
-      node = node.next
-      @tail = node
+    if @head.next == nil
+      @tail = @head
+    else
+      until node.next == nil
+        node = node.next
+        @tail = node
+      end
     end
   end
 
@@ -43,7 +45,7 @@ class JungleBeat
   end
 
   def build_link_list(input)
-    if input
+    if input.size != 0
       node = Node.new(input[0])
       if @head == nil
         @head = node
@@ -58,6 +60,8 @@ class JungleBeat
         node.next = Node.new(word)
         node = node.next
       end
+    else
+      @head = Node.new(input)
     end
     count
   end
@@ -112,7 +116,6 @@ class JungleBeat
       pop_bin << node_pop.node
     end
     pop_bin.reverse.join(' ')
-
   end
 
   def find(num, value)

@@ -90,9 +90,9 @@ class JungleBeatTest < MiniTest::Test
     assert_equal 5, jb.count
   end
 
-  def test_includes?
+  def test_include?
     jb = JungleBeat.new('bop boop beep')
-    assert jb.includes?('boop')
+    assert jb.include?('boop')
   end
 
   def test_pop
