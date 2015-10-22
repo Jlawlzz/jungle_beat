@@ -74,6 +74,10 @@ class JungleBeat
   def count
     node = @head
     count = 1
+    find_tail
+    if @tail.next !=nil
+      @tail.next = nil
+    end
     until node.next == nil
       count += 1
       node = node.next
