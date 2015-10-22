@@ -78,9 +78,6 @@ class JungleBeat
     find_tail
     filter_input(input)
     @tail.next = @data
-    if @tail.next !=nil
-      @tail.next = nil
-    end
     input.split.count
   end
 
