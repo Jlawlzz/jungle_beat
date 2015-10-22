@@ -1,7 +1,6 @@
 require './node'
 require 'pry'
 
-
 class JungleBeat
 
   attr_reader :head, :tail, :rate, :voice
@@ -13,7 +12,8 @@ class JungleBeat
   end
 
   def play
-    `say -r #{@rate} -v "#{reset_voice}" "#{all}"`
+    `say -r 500 -v Alice "#{all}"`
+    count
   end
 
   def reset_rate(rate)
@@ -45,8 +45,8 @@ class JungleBeat
   end
 
   def filter_input(pre_input)
-    accept_input = ['tee', 'dee', 'deep','dop', 'doop', 'bop', 'boop', 'beep', 'blop', 'la', 'na']
-    input = pre_input.split(' ').select do |word|
+    accept_input = ['tee', 'dep', 'dee', 'deep','dop', 'doop', 'bop', 'boop', 'beep', 'blop', 'la', 'na']
+    input = pre_input.split.select do |word|
       accept_input.include?(word)
     end
     build_link_list(input)
@@ -75,8 +75,8 @@ class JungleBeat
     node = @head
     count = 1
     until node.next == nil
-      node = node.next
       count += 1
+      node = node.next
     end
     count
   end
@@ -85,6 +85,7 @@ class JungleBeat
     find_tail
     filter_input(input)
     @tail.next = @data
+    input.split.count
   end
 
   def prepend(input)
@@ -95,7 +96,7 @@ class JungleBeat
     @tail.next = old_head
   end
 
-  def includes?(input)
+  def include?(input)
     node = @head
     until node.next == nil
       value = true if node.node == input
@@ -164,4 +165,4 @@ class JungleBeat
   end
 end
 
-# end
+binding.pry
