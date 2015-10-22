@@ -9,22 +9,12 @@ class JungleBeat
   def initialize(input = nil)
     @head = nil
     filter_input(input)
+    p self.count
   end
 
   def play
     `say -r 500 -v Alice "#{all}"`
     count
-  end
-
-  def reset_rate(rate)
-    @rate
-  end
-
-  def reset_voice(voice = 'Boing')
-    if voice != 'Boing'
-      voice = voice
-    end
-    voice
   end
 
   def head?
@@ -69,26 +59,28 @@ class JungleBeat
         node = node.next
       end
     end
+    count
   end
 
   def count
     node = @head
     count = 1
     find_tail
-    if @tail.next !=nil
-      @tail.next = nil
-    end
+
     until node.next == nil
       count += 1
       node = node.next
     end
-    count
+    return count
   end
 
   def append(input)
     find_tail
     filter_input(input)
     @tail.next = @data
+    if @tail.next !=nil
+      @tail.next = nil
+    end
     input.split.count
   end
 
@@ -98,6 +90,7 @@ class JungleBeat
     filter_input(input)
     find_tail
     @tail.next = old_head
+    input.split.count
   end
 
   def include?(input)
@@ -109,7 +102,7 @@ class JungleBeat
     value
   end
 
-  def pop(input)
+  def pop(input = 1)
     pop_bin = []
     input.times do
       node = @head
